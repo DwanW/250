@@ -1,0 +1,35 @@
+* {
+    margin: 0;
+    border: none;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+.App {
+    text-align: center;
+}
+
+.List {
+    background-color: #282c34;
+    width: 200px;
+    height: 400px;
+    border-radius: 3px;
+    color: white;
+}
+
+.Map {
+    margin: auto
+}
+
+.Main {
+    height: 100vh;
+    margin: auto;
+    width: 70%;
+    justify-content: center;
+}
+
+#idProductSearch {
+    height: 30px;
+    font-size: 20;
+}
