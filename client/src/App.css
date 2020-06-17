@@ -37,13 +37,10 @@
 }
 
 .Main {
-    height: 100vh;
-    width: 90%;
     margin: auto;
-    display: grid;
-    grid-template-columns: 70% 30%;
-    align-items: center;
-    /* justify-content: center; */
+    height: 100vh;
+    width: 80%;
+    justify-content: center;
 }
 
 #idProductSearch {
