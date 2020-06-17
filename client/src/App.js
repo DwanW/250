@@ -6,7 +6,9 @@ import Map from './components/map.js';
 function App() {
   return (
     <div className="App">
-      <Map /><List />
+      <div className="Main">
+        <Map /><List />
+      </div>
     </div>
   );
 }

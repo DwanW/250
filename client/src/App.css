@@ -19,14 +19,31 @@
 }
 
 .Map {
-    margin: auto
+    margin: auto;
+}
+
+.Gmap_canvas {
+    overflow: hidden;
+    background: none!important;
+    height: 600px;
+    width: 100%;
+}
+
+.Mapouter {
+    position: relative;
+    text-align: right;
+    height: 600px;
+    width: 100%;
 }
 
 .Main {
     height: 100vh;
+    width: 90%;
     margin: auto;
-    width: 70%;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 70% 30%;
+    align-items: center;
+    /* justify-content: center; */
 }
 
 #idProductSearch {
