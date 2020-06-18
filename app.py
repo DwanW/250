@@ -6,9 +6,9 @@ from farmers import Farmers
 
 app = Flask(__name__)
 CORS(app)
+# CORS(app, supports_credentials=True)
 
 
-app = Flask(__name__)
 app.config['PROPAGATE_EXCEPTIONS'] = True
 app.secret_key = 'jose'
 api = Api(app)
@@ -16,7 +16,7 @@ api = Api(app)
 
 @app.route("/")
 def helloWorld():
-  return "Hello, cross-origin-world!"
+  return "Hello, Welcome to Farmers' Market API!"
 
 
 api.add_resource(Farmers, '/farmers')
