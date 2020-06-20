@@ -7,16 +7,23 @@
 }
 
 .App {
-    text-align: center;
+    margin: auto;
+    height: 100vh;
+    width: 90%;
+    justify-content: center;
 }
 
 .List {
     background-color: #282c34;
-    width: 200px;
-    height: 400px;
+    width: 100%;
+    height: 500px;
     border-radius: 3px;
     color: white;
     z-index: 99;
+    padding-left: 10px;
+    padding-top: 5px;
+    overflow-y: auto;
+    margin-left: 5px;
 }
 
 .List ul {
@@ -30,7 +37,7 @@
 
 .Gmap_canvas {
     overflow: hidden;
-    background: none!important;
+    background: none !important;
     height: 600px;
     width: 100%;
 }
@@ -44,12 +51,8 @@
 
 .Main {
     display: grid;
-    grid-template-columns: 70% 30%;
-    padding-top: 10px;
-    margin: auto;
-    height: 100vh;
-    width: 90%;
-    justify-content: left;
+    grid-template-columns: 80% 20%;
+    width: 100%;
 }
 
 #idProductSearch {
