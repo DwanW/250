@@ -13,7 +13,6 @@ class OurMap extends React.Component {
         if(prevProps.markers !== this.props.markers){
             this.setState({markers:this.props.markers})
         } 
-        console.log(this.state.markers)
     }
     render() {
         return (

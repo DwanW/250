@@ -55,7 +55,6 @@ class App extends React.Component {
     json.status = response.status;
     json.statusText = response.statusText;
     let arr1= Object.values(json);
-    console.log(arr1)
     // await console.log(json)
     // return json;
     this.setState({ allLocations: arr1 })
