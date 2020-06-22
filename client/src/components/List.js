@@ -1,6 +1,7 @@
 import React from "react";
 
-let listOfProducts = ['potatoes', 'canola oil', 'milk', 'beef', 'spaghetti', 'pork', 'rossetta', 'rice','peas','cake']
+// let listOfProducts = ['potatoes', 'canola oil', 'milk', 'beef', 'spaghetti', 'pork', 'rossetta', 'rice','peas','cake']
+
 
 class List extends React.Component {
     constructor(props) {
@@ -10,27 +11,34 @@ class List extends React.Component {
             searchValue: '',
         }
     }
-
+    
     makeProducts = (listArr) => {
         let arr1 = [];
         for (let i = 0; i < listArr.length; i++) {
-            arr1.push(<li key={i}>{listArr[i]}</li>)
+            arr1.push(<li key={i}><input type="checkbox"/>{listArr[i]}</li>)
         }
         this.setState({ products: arr1 })
     }
     componentDidMount() {
-        this.makeProducts(listOfProducts);
+        this.makeProducts(this.props.items);
     }
 
 
     handleSearchChange = (e) => {
         this.setState({ searchValue: e.target.value });
-        let tempArr = listOfProducts.filter(str =>{return str.toLowerCase().includes(e.target.value.toLowerCase())});
+        
+         let tempArr = this.props.items.filter(str =>{return str.toLowerCase().includes(e.target.value.toLowerCase())});
         this.makeProducts(tempArr);
     }
 
+    componentDidUpdate(prevProps){
+        if(prevProps.items !== this.props.items){
+            this.makeProducts(this.props.items)
+        } 
+    }
+
     render() {       
-    
+        
         return (
             <div className="List">
                 Products

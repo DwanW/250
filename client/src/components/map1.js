@@ -2,11 +2,23 @@ import React from "react";
 import GoogleApiWrapper from './googleAPI.js'
 
 class OurMap extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            markers:[],
+        }
+    }
 
+    componentDidUpdate(prevProps){
+        if(prevProps.markers !== this.props.markers){
+            this.setState({markers:this.props.markers})
+        } 
+        console.log(this.state.markers)
+    }
     render() {
         return (
             <div className="Mapouter" id='map' >
-                <GoogleApiWrapper markers={this.props.markers} />
+                <GoogleApiWrapper markers={this.state.markers} />
             </div>
         )
     }

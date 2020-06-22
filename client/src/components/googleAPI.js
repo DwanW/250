@@ -18,7 +18,7 @@ export class MapContainer extends React.Component {
         return this.props.markers.map((pin, index) => {
             return <Marker key={index} id={index}
                 position={{ lat: pin.latitude, lng: pin.longitude }}
-                onClick={this.onMarkerClick} name={pin.name}
+                onClick={this.onMarkerClick} name={`${pin.name} ${pin.products}`}
             />
         })
     }

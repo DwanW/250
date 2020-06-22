@@ -9,7 +9,33 @@ class App extends React.Component {
     this.state = {
       allLocations: [],
       filteredLocations: [],
+      list:[],
     }
+  }
+
+  getList = async ()=>{
+    // let data= await this.getData('http://localhost:5000/products');
+    const response = await fetch('http://localhost:5000/products', {
+      method: "GET",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      redirect: "follow",
+      referrer: "no-referrer",
+      // body: JSON.stringify(data),
+    });
+    const data = await response.json(); // parses JSON response into native JavaScript objects
+    // json.status = response.status;
+    // json.statusText = response.statusText;
+    let listNew =[];
+    for (let i=0;i<data.length;i++){
+      listNew.push(data[i]["name"])
+    }
+    console.log(listNew)
+    this.setState({list:listNew})
   }
 
   async getData(inputurl) {
@@ -28,31 +54,36 @@ class App extends React.Component {
     const json = await response.json(); // parses JSON response into native JavaScript objects
     json.status = response.status;
     json.statusText = response.statusText;
+    let arr1= Object.values(json);
+    console.log(arr1)
     // await console.log(json)
     // return json;
-    this.setState({ locations: json })
+    this.setState({ allLocations: arr1 })
   }
 
   componentDidMount() {
-    this.getData('http://localhost:5000/farmers')
+    console.log("on render")
+    this.getData('http://localhost:5000/info')
+    this.getList()
   }
 
   render() {
     //=================sample locations ======================
-    let locations = [
-      { name: 'Airdrie', latitude: 51.2927, longitude: -114.0134 },
-      { name: 'Red Deer', latitude: 52.2690, longitude: -113.8116 },
-      { name: 'Calgary', latitude: 51.0447, longitude: -114.0719 },
-      { name: 'Cochrane', latitude: 51.1918, longitude: -114.4667 },
-    ]
+    // let locations = [
+    //   { name: 'Airdrie', latitude: 51.2927, longitude: -114.0134 },
+    //   { name: 'Red Deer', latitude: 52.2690, longitude: -113.8116 },
+    //   { name: 'Calgary', latitude: 51.0447, longitude: -114.0719 },
+    //   { name: 'Cochrane', latitude: 51.1918, longitude: -114.4667 },
+    // ]
     //========================================================
     return (
       <div className="App">
+        <h1>FARMERS MARKETS</h1>
         <div className="Main">
-
+          
           {/* <Map pins={this.state.locations}/> */}
-          <Map markers={locations} />
-          <List />
+          <Map markers={this.state.allLocations} />
+          <List items={this.state.list} />
         </div>
       </div>
     );

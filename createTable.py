@@ -10,6 +10,8 @@ conn = psycopg2.connect(database="postgres",
 cursor = conn.cursor()
 
 def addFarmersRows():
+    # create_table = "CREATE TABLE IF NOT EXISTS farmers (id INTEGER PRIMARY KEY, name text, lat int, long int)"
+    # cursor.execute(create_table)
     wb = load_workbook('./farmersmarkets.xlsx')
     maxID= cursor.execute("SELECT MAX(id) FROM farmers")
     maxID=[0][0]+1
@@ -18,16 +20,12 @@ def addFarmersRows():
         cursor.execute(insert, (maxID,row[3], row[15], row[16]))
         maxID=maxID+1
 
-
 # addFarmersRows()
-
-# addTest="INSERT INTO farmers(id,name,lat,long) VALUES (1,%s,%s,%s)"
-# cursor.execute(addTest, ('name',51,120))
-
 def printOut():
     cursor.execute("SELECT * FROM farmers")
     x=cursor.fetchall()
-    print(x)
+    print(type(x))
+
 
 printOut()
 
@@ -54,14 +52,6 @@ conn.close()
 
 # # MUST BE INTEGER
 # # This is the only place where int vs INTEGER matters—in auto-incrementing columns
-# create_table = "CREATE TABLE IF NOT EXISTS farmers (id INTEGER PRIMARY KEY, name text, lat int, long int)"
-# cursor.execute(create_table)
-
-# wb = load_workbook('./250/farmersmarkets.xlsx')
- 
-# # for row in wb['farmersmarkets']:
-# #      # print(row[3].value)
-# #     x = f"INSERT INTO farmers VALUES(null,{row[3].value},{row[15].value},{row[16].value}) "
 # #     cursor.execute(x)
 # def addRows():
 #     insert = "INSERT into farmers VALUES(NULL,?,?,?)"
