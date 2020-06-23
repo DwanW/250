@@ -12,9 +12,11 @@ class OurMap extends React.Component {
     componentDidUpdate(prevProps){
         if(prevProps.markers !== this.props.markers){
             this.setState({markers:this.props.markers})
+            // console.log(this.state.markers);
         } 
     }
     render() {
+        
         return (
             <div className="Mapouter" id='map' >
                 <GoogleApiWrapper markers={this.state.markers} />

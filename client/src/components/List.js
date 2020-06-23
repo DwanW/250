@@ -1,7 +1,5 @@
 import React from "react";
 
-// let listOfProducts = ['potatoes', 'canola oil', 'milk', 'beef', 'spaghetti', 'pork', 'rossetta', 'rice','peas','cake']
-
 
 class List extends React.Component {
     constructor(props) {
@@ -11,15 +9,25 @@ class List extends React.Component {
             searchValue: '',
         }
     }
+
+    onChecked=(e)=>{
+        console.log(e.target.value)
+        if (e.target.checked){
+            this.props.checked(e.target.value)
+        } else {
+            this.props.remove(e.target.value)
+        }
+    }
     
     makeProducts = (listArr) => {
         let arr1 = [];
+        // console.log(listArr)
         for (let i = 0; i < listArr.length; i++) {
-            arr1.push(<li key={i}><input type="checkbox"/>{listArr[i]}</li>)
+            arr1.push(<li key={i}><input onChange={this.onChecked} type="checkbox" value={listArr[i]}/>{listArr[i]}</li>)
         }
         this.setState({ products: arr1 })
     }
-    componentDidMount() {
+    componentDidMount() {   
         this.makeProducts(this.props.items);
     }
 
@@ -27,7 +35,7 @@ class List extends React.Component {
     handleSearchChange = (e) => {
         this.setState({ searchValue: e.target.value });
         
-         let tempArr = this.props.items.filter(str =>{return str.toLowerCase().includes(e.target.value.toLowerCase())});
+        let tempArr = this.props.items.filter(str =>{return str.toLowerCase().includes(e.target.value.toLowerCase())});
         this.makeProducts(tempArr);
     }
 
