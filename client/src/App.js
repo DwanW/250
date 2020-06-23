@@ -10,6 +10,7 @@ class App extends React.Component {
       allLocations: [],
       filteredLocations: [],
       list:[],
+      login: false,
     }
   }
 
@@ -60,8 +61,13 @@ class App extends React.Component {
     this.setState({ allLocations: arr1 })
   }
 
+  displayLogin = async ()=>{
+    console.log("clicked form admin login")
+    this.setState({login:true})
+  }
+
   componentDidMount() {
-    console.log("on render")
+    // console.log("on render")
     this.getData('http://localhost:5000/info')
     this.getList()
   }
@@ -76,8 +82,9 @@ class App extends React.Component {
     // ]
     //========================================================
     return (
+     
       <div className="App">
-        <h1>FARMERS MARKETS</h1>
+        <button id="idLogin" onClick={this.displayLogin}>Admin Login</button><h1>FARMERS MARKETS</h1> 
         <div className="Main">
           
           {/* <Map pins={this.state.locations}/> */}
@@ -85,6 +92,7 @@ class App extends React.Component {
           <List items={this.state.list} />
         </div>
       </div>
+      
     );
   }
 }
