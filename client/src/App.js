@@ -14,7 +14,6 @@ class App extends React.Component {
       markers:[],
       productList:[],
       login: false,
-      adminInterface:'',
       checkedProduct:[],
       // boxChecked: false,
     }
@@ -22,17 +21,15 @@ class App extends React.Component {
 
 
   checked=(chk)=>{
-    let templist = this.state.checkedProduct;
-    templist.push(chk)
-    this.setState({checkedProduct: templist})
+    let tempList = this.state.checkedProduct;
+    tempList.push(chk)
+    this.setState({checkedProduct: tempList})
 
     // change markers to filteredLocations
     // console.log(arr1,this.state.allLocations)
-    let filteredLocationList = getMarkersFromList(templist,this.state.allLocations)
+    let filteredLocationList = getMarkersFromList(tempList,this.state.allLocations)
     console.log(filteredLocationList);
     this.setState({markers:filteredLocationList})
-    
-    // this.setMarkers()  
   }
 
   remove=(rem)=>{
@@ -97,48 +94,17 @@ class App extends React.Component {
     // json.statusText = response.statusText;
     let arr1= Object.values(json);
     // await console.log(json)
-    // return json;
+    
     this.setState({ 
       allLocations: arr1,
     })
-    this.setMarkers()
-  }
-
-  setMarkers=()=>{
-    // console.log(this.state.boxChecked);
-    
-    // if(this.state.boxChecked===true){
-    //   this.setState({markers:this.state.filteredLocations})
-    // } else{
-      this.setState({markers:this.state.allLocations})
-    // }
-  }
-
-  displayLogin = async ()=>{
-    console.log("clicked form admin login")
-    this.setState({login:true})
-    this.displayAdmin()
+    this.setState({markers:this.state.allLocations})
   }
 
   componentDidMount() {
-    // console.log("on render")
     this.getData('http://localhost:5000/info')
     this.getList()
   }
-
-
-  displayAdmin = ()=>{
-    if (this.state.login===true){
-      this.setState({adminInterface:<CRUD />}) 
-    }
-    else if(this.state.login===false){
-      this.setState({adminInterface:''}) 
-    }
-  }
-
-  // componentDidUpdate(prevState){
-  //   console.log('hi');
-  // }
 
 
   render() {
@@ -154,7 +120,7 @@ class App extends React.Component {
     return (
      
       <div className="App">
-        <button id="idLogin" onClick={this.displayLogin}>Admin Login</button><h1>FARMERS MARKETS</h1> 
+        <button id="idLogin" onClick={()=>this.setState({login:true})}>Admin Login</button><h1>FARMERS MARKETS</h1> 
         <div className="Main">
           
           {/* <Map pins={this.state.locations}/> */}
@@ -166,7 +132,7 @@ class App extends React.Component {
            />
         </div>
         <div>
-        {this.state.adminInterface}
+        {this.state.login ? <CRUD /> : null}
         </div>
       </div>
       
