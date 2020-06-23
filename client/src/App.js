@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import List from './components/List.js';
 import Map from './components/map1.js';
+import CRUD from './components/crud.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class App extends React.Component {
       filteredLocations: [],
       list:[],
       login: false,
+      adminInterface:'',
     }
   }
 
@@ -64,12 +66,22 @@ class App extends React.Component {
   displayLogin = async ()=>{
     console.log("clicked form admin login")
     this.setState({login:true})
+    this.displayAdmin()
   }
 
   componentDidMount() {
     // console.log("on render")
     this.getData('http://localhost:5000/info')
     this.getList()
+  }
+
+  displayAdmin = ()=>{
+    if (this.state.login===true){
+      this.setState({adminInterface:<CRUD />}) 
+    }
+    else if(this.state.login===false){
+      this.setState({adminInterface:''}) 
+    }
   }
 
   render() {
@@ -81,6 +93,7 @@ class App extends React.Component {
     //   { name: 'Cochrane', latitude: 51.1918, longitude: -114.4667 },
     // ]
     //========================================================
+
     return (
      
       <div className="App">
@@ -90,6 +103,9 @@ class App extends React.Component {
           {/* <Map pins={this.state.locations}/> */}
           <Map markers={this.state.allLocations} />
           <List items={this.state.list} />
+        </div>
+        <div>
+        {this.state.adminInterface}
         </div>
       </div>
       
