@@ -64,10 +64,62 @@
     width: 850px !important;
 }
 
-#idLogin{
+#idLogin {
     height: 30px;
     width: 100px;
     border-radius: 5px;
     float: right;
     margin: 10px;
+}
+
+.clLineItem {
+    color: white;
+    height: 50px;
+    background-color: #282c34;
+    border-radius: 5px;
+    border: solid black 3px;
+    margin: 10px;
+    flex-wrap: wrap;
+    flex-direction: row;
+    /* flex-grow: 1; */
+    justify-content: flex-start;
+    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.clLineItem:nth-child(1) {
+    color: red
+}
+
+.clLineItem input {
+    height: 30px;
+    border-radius: 5px;
+}
+
+.clLineItem button {
+    height: 35px;
+    width: 90px;
+    /* margin: 5px; */
+    border-radius: 5px;
+    border: solid black 2px;
+}
+
+#idDeleteFarmer {
+    float: right;
+}
+
+.clAdmin button {
+    height: 35px;
+    width: 90px;
+    /* margin: 5px; */
+    border-radius: 5px;
+    border: solid black 2px;
+    margin: 5px;
+}
+
+.clAdmin input {
+    height: 35px;
+    border-radius: 5px;
+    border: solid black 2px;
 }

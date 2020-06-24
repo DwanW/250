@@ -46,6 +46,7 @@ class CRUD extends React.Component {
                 name={this.state.data[i].name}
                 id={this.state.data[i].id}
                 key={this.state.data[i].id}
+                products={this.state.data[i].products}
             />)
         }
         this.setState({rows:arr1})
@@ -72,6 +73,11 @@ class CRUD extends React.Component {
         return (
             <div className="clAdmin">
                <h1>ADMIN</h1>
+               <button> Add global product </button> <input placeholder="Enter Product Name"></input>
+               <br/>
+               <button> Add Farmer </button>  <input placeholder="Enter Farm Name"></input> <input placeholder="Enter Farm Latitude" type="number"></input> <input placeholder="Enter Farm Longitude" type="number"></input>
+               
+
                 {this.state.rows}
             </div>
         )

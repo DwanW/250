@@ -20,8 +20,9 @@ def helloWorld():
   return "Hello, Welcome to Farmers' Market API!"
 
 
-api.add_resource(Farmers, '/farmers')
-api.add_resource(Products, '/products')
+api.add_resource(Farmers, '/farmers', '/farmers/add','/farmers/<int:_id>')
+api.add_resource(Products, '/products','/products/<string:name>')
+
 api.add_resource(Info, '/info')
 
 if __name__ == '__main__':

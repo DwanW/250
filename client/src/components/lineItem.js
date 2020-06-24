@@ -13,8 +13,15 @@ class LineItem extends React.Component {
         
         return (
             <div className="clLineItem">
-               {this.props.name}
-                {this.props.id}
+                <span>{this.props.id `${" "}`} Name: {this.props.name}</span>                
+                <input /> 
+               <button>Update Name</button>
+               {/* <input/>  */}
+               <button>Edit Products</button>
+               Products: {this.props.products}
+               <button id="idDeleteFarmer">Delete</button>
+               
+                
             </div>
         )
     }
