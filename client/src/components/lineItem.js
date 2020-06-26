@@ -68,9 +68,7 @@ class LineItem extends React.Component {
         arr1.push(<div key={i}><input type="checkbox" value={this.props.productList[i]} /> {this.props.productList[i]}</div>)
       }
     }
-
     this.setState({ productBoxes: arr1 })
-
     let x = document.getElementsByClassName("modal")[0]
     x.style.display = "block"
   }
