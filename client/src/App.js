@@ -132,7 +132,7 @@ class App extends React.Component {
            />
         </div>
         <div>
-        {this.state.login ? <CRUD /> : null}
+        {this.state.login ? <CRUD products={this.state.productList}/> : null}
         </div>
       </div>
       

@@ -28,7 +28,7 @@ class CRUD extends React.Component {
         // json.status = response.status;
         // json.statusText = response.statusText;
         // let arr1= Object.values(json);
-        console.log(Object.values(json))
+        // console.log(Object.values(json))
         this.setState({ 
           data: Object.values(json),
         })
@@ -40,13 +40,14 @@ class CRUD extends React.Component {
       makeRows =()=>{
         // let arr1= Object.values(this.state.data);
         let arr1=[]
-        console.log(this.state.data);
+        // console.log(this.state.data);
         for (let i=0;i<this.state.data.length;i++){
             arr1.push(<LineItem 
                 name={this.state.data[i].name}
                 id={this.state.data[i].id}
                 key={this.state.data[i].id}
                 products={this.state.data[i].products}
+                productList={this.props.products}
             />)
         }
         this.setState({rows:arr1})
@@ -65,7 +66,6 @@ class CRUD extends React.Component {
         if (prevState.data !== this.state.data){
             this.makeRows()
         }
-        // console.log(this.state.rows);
       }
 
     render() {       
@@ -73,6 +73,7 @@ class CRUD extends React.Component {
         return (
             <div className="clAdmin">
                <h1>ADMIN</h1>
+               <button onClick={()=>this.getData('http://localhost:5000/info')}>Refresh</button><br/>
                <button> Add global product </button> <input placeholder="Enter Product Name"></input>
                <br/>
                <button> Add Farmer </button>  <input placeholder="Enter Farm Name"></input> <input placeholder="Enter Farm Latitude" type="number"></input> <input placeholder="Enter Farm Longitude" type="number"></input>
