@@ -8,6 +8,8 @@ class LineItem extends React.Component {
     this.state = {
       newName: '',
       productBoxes: [],
+      products:"",
+      hideModal:true
     }
   }
   handleChange = (e) => {
@@ -34,7 +36,7 @@ class LineItem extends React.Component {
   }
 
   async delete(urlEnder) {
-    const response = await fetch(url + urlEnder, {
+    const response = await fetch(url+'/farmers/' + urlEnder, {
       method: "DELETE",
       mode: "cors",
       cache: "no-cache",
@@ -60,28 +62,41 @@ class LineItem extends React.Component {
   handleEditProductsClick = () => {
     let arr1 = []
     const size = this.props.productList.length;
-
+    let productsArr= this.props.products.map(({name})=>name  )
     for (let i = 0; i < size; i++) {
-      if (this.props.products.includes(this.props.productList[i])) {
+      if (productsArr.includes(this.props.productList[i])) {
         arr1.push(<div key={i}><input type="checkbox" defaultChecked value={this.props.productList[i]} /> {this.props.productList[i]}</div>)
       } else {
         arr1.push(<div key={i}><input type="checkbox" value={this.props.productList[i]} /> {this.props.productList[i]}</div>)
       }
     }
+    // console.log(arr1);
+    
     this.setState({ productBoxes: arr1 })
-    let x = document.getElementsByClassName("modal")[0]
-    x.style.display = "block"
+    this.setState({ hideModal: false})
+    // let x = document.getElementsByClassName("modal")[0]
+    // x.style.display = "block"
   }
 
 
 
   close = () => {
-    let x = document.getElementsByClassName("modal")[0]
-    x.style.display = "none"
+    this.setState({ hideModal: true})
+    // let x = document.getElementsByClassName("modal")[0]
+    // x.style.display = "none"
+  }
+
+  componentDidMount(){
+    let str ="";
+    const size = this.props.products.length
+    for (let i=0;i<size;i++){
+      str =str + this.props.products[i].name +", "
+    }
+    this.setState({products:str})
+    
   }
 
   render() {
-
     return (
       <div className="clLineItem">
         <span>id:{this.props.id}, {" "} Name: {this.props.name}</span>
@@ -89,10 +104,10 @@ class LineItem extends React.Component {
         <button onClick={this.updateName}>Update Name</button>
         {/* <input/>  */}
         <button onClick={this.handleEditProductsClick}>Edit Products</button>
-               Products: {this.props.products}
+               Products: {this.state.products}
         <button id="idDeleteFarmer" onClick={() => this.delete(this.props.id)}>Delete</button>
 
-        <div id="myModal" className="modal">
+        <div id="myModal" className={`modal ${this.state.hideModal? '':'show'}`}>
           <div className="modal-content">
             <span onClick={this.close} className="close">&times;</span>
             <div className="clModalIn">{this.state.productBoxes}</div>

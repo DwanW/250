@@ -14,13 +14,16 @@ class Info(Resource):
             host="farmersmarket-1.cqyj9z6amn2q.us-east-1.rds.amazonaws.com",
             port='5432')
         cursor = connection.cursor()
-        cursor.execute("SELECT farmers.id,farmers.name, lat, long, product_id, product.name FROM farmers_items JOIN farmers ON farmers_items.farmer_id= farmers.id JOIN product ON farmers_items.product_id = product.id")
+        # cursor.execute("SELECT farmers.id,farmers.name, lat, long, product_id, product.name, farmers_items.id  FROM farmers_items JOIN farmers ON farmers_items.farmer_id= farmers.id JOIN product ON farmers_items.product_id = product.id")
+        cursor.execute("SELECT farmers.id,farmers.name, lat, long, product_id, product.name, farmers_items.id  FROM farmers left JOIN farmers_items ON farmers_items.farmer_id= farmers.id left JOIN product ON farmers_items.product_id = product.id")
+
         data=cursor.fetchall()
         # print(data[0])
         for row in data:
             if row[0] in dict1:
                 # print(dict1[row[0]])
-                dict1[row[0]]['products'].append(row[5])
+            
+                dict1[row[0]]['products'].append({"name":row[5], "farmers_items_id":row[6],"product_id":row[4]})
             else:      
                 dict1[row[0]]=self.buildDict(row)
             # arr1.append(row)
@@ -42,7 +45,7 @@ class Info(Resource):
                 'name':row[1],
                 'latitude':float(row[2]),
                 'longitude':float(row[3]),
-                'products': [row[5]]
+                'products': [{"name":row[5], "farmers_items_id":row[6], "product_id":row[4]}],
             }
             return dictn
     

@@ -3,6 +3,7 @@ from flask_cors import CORS
 from flask_restful import Api
 from farmers import Farmers 
 from products import Products
+from product_list import ProductList
 from info import Info
 
 app = Flask(__name__)
@@ -22,6 +23,7 @@ def helloWorld():
 
 api.add_resource(Farmers, '/farmers', '/farmers/add','/farmers/<int:_id>')
 api.add_resource(Products, '/products','/products/<string:name>')
+api.add_resource(ProductList, '/productlist')
 
 api.add_resource(Info, '/info')
 

@@ -7,6 +7,9 @@ verify_ssl = true
 
 [packages]
 psycopg2 = "*"
+flask = "*"
+flask-cors = "*"
+flask-restful = "*"
 
 [requires]
 python_version = "3.8"
