@@ -9,7 +9,8 @@ class LineItem extends React.Component {
       newName: '',
       productBoxes: [],
       products:"",
-      hideModal:true
+      hideModal:true,
+      hideLineItem: false
     }
   }
   handleChange = (e) => {
@@ -51,7 +52,9 @@ class LineItem extends React.Component {
     const json = await response.json(); // parses JSON response into native JavaScript objects
     // json.status = response.status;
     // json.statusText = response.statusText;
+    this.setState({hideLineItem: true})
     return json;
+    
   }
 
   updateName = () => {
@@ -71,19 +74,14 @@ class LineItem extends React.Component {
       }
     }
     // console.log(arr1);
-    
     this.setState({ productBoxes: arr1 })
     this.setState({ hideModal: false})
-    // let x = document.getElementsByClassName("modal")[0]
-    // x.style.display = "block"
   }
 
 
 
   close = () => {
     this.setState({ hideModal: true})
-    // let x = document.getElementsByClassName("modal")[0]
-    // x.style.display = "none"
   }
 
   componentDidMount(){
@@ -98,7 +96,7 @@ class LineItem extends React.Component {
 
   render() {
     return (
-      <div className="clLineItem">
+      <div className={`clLineItem ${this.state.hideLineItem? 'hide':''}` } >
         <span>id:{this.props.id}, {" "} Name: {this.props.name}</span>
         <input type="text" placeholder="new name here" onChange={this.handleChange} value={this.state.newName} />
         <button onClick={this.updateName}>Update Name</button>
