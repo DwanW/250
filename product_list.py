@@ -12,7 +12,7 @@ class ProductList(Resource):
                 password="123456789",
                 host="farmersmarket-1.cqyj9z6amn2q.us-east-1.rds.amazonaws.com",
                 port='5432')
-            data = request.get_json() # {"product_id": int,"farmers_items_ID":int ,"farmer_ID": int} OR get by checked, add a multi item dicitonary, but delete the old databse links?
+            data = request.get_json() # {"product_id": int ,"farmer_ID": int} OR get by checked, add a multi item dicitonary, but delete the old databse links?
             cursor = connection.cursor()
             cursor.execute('SELECT max(id) from farmers_items')
             maxID=cursor.fetchall()[0][0]+1

@@ -26,44 +26,12 @@ class CRUD extends React.Component {
           referrer: "no-referrer",
           // body: JSON.stringify(data),
         });
-        const json = await response.json(); // parses JSON response into native JavaScript objects
-        // json.status = response.status;
-        // json.statusText = response.statusText;
-        // let arr1= Object.values(json);
-        // console.log(Object.values(json))
+        const json = await response.json();
         let arr1= Object.values(json)
-        console.log(arr1);
-        
-        // const citiesWithoutProducts = await fetch('http://localhost:5000/farmers', {
-        //   method: "GET",
-        //   mode: "cors",
-        //   cache: "no-cache",
-        //   credentials: "same-origin",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   },
-        //   redirect: "follow",
-        //   referrer: "no-referrer",
-        //   // body: JSON.stringify(data),
-        // });
-        // const json2 = await citiesWithoutProducts.json();
-        // let json2Arr=Object.values(json2)
-        // let arr2 = [];
-        // for (let j=0;j<arr1.length;j++){
-        //   arr2.push(arr1[j].id)
-        // }
-        // for (let i=0;i<json2Arr.length;i++){
-        //   if (arr2.includes(json2Arr[i].id)!== true){
-        //     json2Arr[i].products=[];
-        //     arr1.push(json2Arr[i])
-        //   }
-        // }
         this.setState({ 
           data: arr1,
         })
-        
         return json;
-        
       }
 
       async serverAddProduct(inputurl, data={}) {
@@ -79,15 +47,13 @@ class CRUD extends React.Component {
           referrer: "no-referrer",
           body: JSON.stringify(data),
         });
-        const json = await response.json(); // parses JSON response into native JavaScript objects
+        const json = await response.json();
         return json;
       }
 
 
       makeRows =()=>{
-        // let arr1= Object.values(this.state.data);
         let arr1=[]
-        // console.log(this.state.data);
         for (let i=0;i<this.state.data.length;i++){ 
             arr1.push(<LineItem 
                 name={this.state.data[i].name}
@@ -102,14 +68,9 @@ class CRUD extends React.Component {
 
       componentDidMount() {
         this.getData('http://localhost:5000/info')
-        console.log('wow')
-        // this.makeRows()
       }
 
       componentDidUpdate(prevProps,prevState){
-        // console.log("hi from update");
-        // console.log(prevState.data);
-        
         if (prevState.data !== this.state.data){
             this.makeRows()
         }
@@ -120,7 +81,6 @@ class CRUD extends React.Component {
       }
 
       handleAddProductButton=()=>{
-        console.log(this.state.addGlobalProduct);
         const str=this.state.addGlobalProduct
         this.serverAddProduct('http://localhost:5000/products/'+str)
       }
@@ -131,7 +91,6 @@ class CRUD extends React.Component {
       }
 
     render() {       
-        // console.log(this.state.addNewFarmer)
         return (
             <div className="clAdmin">
                <h1>ADMIN</h1>
@@ -142,8 +101,6 @@ class CRUD extends React.Component {
                <input onChange={(e) => this.handleFarmVariableChange({name:e.target.value})} placeholder="Enter Farm Name" /> 
                <input onChange={(e) => this.handleFarmVariableChange({Latitude:e.target.value})}placeholder="Enter Farm Latitude" type="number" /> 
                <input onChange={(e) => this.handleFarmVariableChange({Longitude:e.target.value})}placeholder="Enter Farm Longitude" type="number" />
-               
-
                 {this.state.rows}
             </div>
         )

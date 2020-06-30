@@ -1,4 +1,5 @@
 import React from "react";
+import LineItemInput from './line-item-input';
 
 const url = 'http://localhost:5000/'
 
@@ -10,7 +11,8 @@ class LineItem extends React.Component {
       productBoxes: [],
       products:"",
       hideModal:true,
-      hideLineItem: false
+      hideLineItem: false,
+      whatsChecked:[],
     }
   }
   handleChange = (e) => {
@@ -30,9 +32,7 @@ class LineItem extends React.Component {
       referrer: "no-referrer",
       body: JSON.stringify(data),
     });
-    const json = await response.json(); // parses JSON response into native JavaScript objects
-    // json.status = response.status;
-    // json.statusText = response.statusText;
+    const json = await response.json();
     return json;
   }
 
@@ -67,15 +67,15 @@ class LineItem extends React.Component {
     const size = this.props.productList.length;
     let productsArr= this.props.products.map(({name})=>name  )
     for (let i = 0; i < size; i++) {
-      if (productsArr.includes(this.props.productList[i])) {
-        arr1.push(<div key={i}><input type="checkbox" defaultChecked value={this.props.productList[i]} /> {this.props.productList[i]}</div>)
+      if (productsArr.includes(this.props.productList[i].name)) {
+        arr1.push(<LineItemInput key={i} checked={true} name={this.props.productList[i].name} farmerID={this.props.id} productID={this.props.productList[i].id}/>)
       } else {
-        arr1.push(<div key={i}><input type="checkbox" value={this.props.productList[i]} /> {this.props.productList[i]}</div>)
+        arr1.push(<LineItemInput key={i} checked={false} name={this.props.productList[i].name} farmerID={this.props.id} productID={this.props.productList[i].id} init={this.props.products}/>)
       }
     }
-    // console.log(arr1);
-    this.setState({ productBoxes: arr1 })
-    this.setState({ hideModal: false})
+    this.setState({ productBoxes: arr1,
+      hideModal: false })
+    // this.setState({ })
   }
 
 
@@ -87,12 +87,16 @@ class LineItem extends React.Component {
   componentDidMount(){
     let str ="";
     const size = this.props.products.length
+    let tempArr= []
     for (let i=0;i<size;i++){
       str =str + this.props.products[i].name +", "
+      tempArr.push(this.props.products[i].name)
     }
-    this.setState({products:str})
+    this.setState({products:str, whatsChecked: tempArr})
+
     
   }
+  
 
   render() {
     return (
@@ -109,7 +113,7 @@ class LineItem extends React.Component {
           <div className="modal-content">
             <span onClick={this.close} className="close">&times;</span>
             <div className="clModalIn">{this.state.productBoxes}</div>
-            <button>Save</button>
+            {/* <button onClick={()=>this.saveItems()}>Save</button> */}
           </div>
         </div>
 

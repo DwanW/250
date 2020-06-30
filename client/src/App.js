@@ -10,12 +10,10 @@ class App extends React.Component {
     super(props);
     this.state = {
       allLocations: [],
-      // filteredLocations:[],
       markers:[],
       productList:[],
       login: false,
       checkedProduct:[],
-      // boxChecked: false,
     }
   }
 
@@ -26,9 +24,7 @@ class App extends React.Component {
     this.setState({checkedProduct: tempList})
 
     // change markers to filteredLocations
-    // console.log(arr1,this.state.allLocations)
     let filteredLocationList = getMarkersFromList(tempList,this.state.allLocations)
-    console.log(filteredLocationList);
     this.setState({markers:filteredLocationList})
   }
 
@@ -40,19 +36,14 @@ class App extends React.Component {
       this.setState({checkedProduct:arr1})
       if (arr1.length>0){
       let filteredLocationList = getMarkersFromList(arr1,this.state.allLocations)
-      // console.log(filteredLocationList);
       this.setState({markers:filteredLocationList})
       } else {
-        // console.log(this.state.allLocations)
         this.setState({markers:this.state.allLocations})
       }
-    }
-    // console.log(`remove ${rem}`);
-    
+    }  
   }
 
   getList = async ()=>{
-    // let data= await this.getData('http://localhost:5000/products');
     const response = await fetch('http://localhost:5000/products', {
       method: "GET",
       mode: "cors",
@@ -65,15 +56,13 @@ class App extends React.Component {
       referrer: "no-referrer",
       // body: JSON.stringify(data),
     });
-    const data = await response.json(); // parses JSON response into native JavaScript objects
-    // json.status = response.status;
-    // json.statusText = response.statusText;
-    let listNew =[];
-    for (let i=0;i<data.length;i++){
-      listNew.push(data[i]["name"])
-    }
-    // console.log(listNew)
-    this.setState({productList:listNew})
+    const data = await response.json();
+    // let listNew =[];
+    // for (let i=0;i<data.length;i++){
+    //   listNew.push(data[i]["name"])
+    // }
+    // this.setState({productList:listNew})
+    this.setState({productList:data})
   }
 
   async getData(inputurl) {
@@ -87,13 +76,9 @@ class App extends React.Component {
       },
       redirect: "follow",
       referrer: "no-referrer",
-      // body: JSON.stringify(data),
     });
-    const json = await response.json(); // parses JSON response into native JavaScript objects
-    // json.status = response.status;
-    // json.statusText = response.statusText;
+    const json = await response.json(); 
     let arr1= Object.values(json);
-    // await console.log(json)
     
     this.setState({ 
       allLocations: arr1,
